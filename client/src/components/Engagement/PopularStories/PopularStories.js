@@ -3,8 +3,8 @@ import "./PopularStories.css";
 import { renderStars } from "../../utils/rating";
 
 const sample = [
-  { id: 1, title: "The Lost Kingdom", cover: "mockup", rating: 4.8 },
-  { id: 2, title: "The Secret Garden", cover: "mockup", rating: 4.6 }
+  { id: 1, title: "The Lost Kingdom", cover: "/Kingdom.jpg", rating: 4.8 },
+  { id: 2, title: "The Secret Garden", cover: "/Garden.jpg", rating: 4.6 }
 ];
 
 export default function PopularStories() {
@@ -18,7 +18,7 @@ export default function PopularStories() {
       <div className="popular-grid">
         {sample.map(s => (
           <div className="story-card" key={s.id}>
-            <img src={s.cover} alt={s.title} />
+            <img src={s.cover} alt={s.title} height={150} width={230}/>
             <div className="story-info">
               <div className="title">{s.title}</div>
               <div className="rating">{renderStars(s.rating)}</div>

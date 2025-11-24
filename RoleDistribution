@@ -13,8 +13,8 @@ for each member
 | 4 — UI/UX + Blogs     | Navbar, sidebar, layout, blogs, admin panel, contact     |
 ------------------------------------------------------------------------------------
 
-# -------- SERVER (Backend) --------
-server/
+# -------- API (Backend) --------
+api/
  ├── index.js             # Main Express server; sets up middleware + MongoDB
  ├── .env                 # Secrets: Mongo URI, PORT, JWT keys
  ├── package.json         # NPM dependencies and scripts

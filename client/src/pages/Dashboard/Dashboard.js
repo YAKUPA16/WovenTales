@@ -5,14 +5,14 @@ import ReaderPanel from "../../components/Story/ReaderPanel/ReaderPanel";
 
 export default function Dashboard() {
   return (
-    <div className="dashboard-grid">
-      <section className="left-panel">
-        <PopularStories />
-      </section>
+  <div className="dashboard-grid">
+    <section className="left-panel">
+      <PopularStories />
+    </section>
 
-      <aside className="right-panel">
-        
-      </aside>
-    </div>
+    <aside className="right-panel">
+
+    </aside>
+  </div>
   );
 }

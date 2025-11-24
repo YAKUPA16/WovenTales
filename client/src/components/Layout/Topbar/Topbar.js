@@ -11,7 +11,7 @@ export default function Topbar() {
 
       <div className="topbar-right">
         <button className="btn-blue">Start Writing</button>
-        <img src="something.png" alt="avatar" className="avatar" />
+        <img src="/avatar.png" alt="avatar" className="avatar" />
       </div>
     </header>
   );
