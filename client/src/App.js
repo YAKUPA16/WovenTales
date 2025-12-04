@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // Layout Components
 import Sidebar from "./components/Layout/Sidebar/Sidebar";
@@ -13,27 +13,42 @@ import BlogList from "./components/Blog/BlogList";
 import BlogPage from "./components/Blog/BlogPage";
 import BlogEditor from "./components/Blog/BlogEditor";
 
+// Auth Components
+import Login from "./components/Profile/Login";
+import Signup from "./components/Profile/Signup";
+import AuthLanding from "./components/Profile/AuthLanding";
+
 export default function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
   return (
     <Router>
-      <div className="app-container" style={{ display: "flex" }}>
-        <Sidebar />
-
-        <main style={{ flex: 1 }}>
-          <Topbar />
-
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/editor" element={<StoryEditor />} />
-            <Route path="/profile" element={<ProfilePage />} />
-
-            {/* BLOG ROUTES */}
-            <Route path="/blogs" element={<BlogList />} />
-            <Route path="/blogs/:id" element={<BlogPage />} />
-            <Route path="/blogs/write" element={<BlogEditor />} />
-          </Routes>
-        </main>
-      </div>
+      {token ? (
+        // Logged-in layout with sidebar + topbar
+        <div className="app-container" style={{ display: "flex" }}>
+          <Sidebar setToken={setToken} />
+          <main style={{ flex: 1 }}>
+            <Topbar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/editor" element={<StoryEditor />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/blogs" element={<BlogList />} />
+              <Route path="/blogs/:id" element={<BlogPage />} />
+              <Route path="/blogs/write" element={<BlogEditor />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </main>
+        </div>
+      ) : (
+        // Public routes: Landing / Login / Signup
+        <Routes>
+          <Route path="/" element={<AuthLanding />} />
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/signup" element={<Signup />} /> {/* signup does NOT set token */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      )}
     </Router>
   );
 }
