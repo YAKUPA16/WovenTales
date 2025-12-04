@@ -1,26 +1,43 @@
-// /api/index.js
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const cors = require("cors");
-require("dotenv").config();
+
+dotenv.config();
 
 const app = express();
-
-// Middlewares
 app.use(express.json());
 app.use(cors());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log("Mongo Error:", err));
 
-// Test Route
-app.get('/api/health', (req, res) => {
-  res.status(200).send("API is running!");
+// Routes
+try {
+  const userRoutes = require("./routes/userRoutes");
+  const storyRoutes = require("./routes/storyRoutes");
+  const blogRoutes = require("./routes/blogRoutes");
+
+  // ✅ Mount routes
+  app.use("/api/users", userRoutes);
+  app.use("/api/stories", storyRoutes);
+  app.use("/api/blogs", blogRoutes);
+
+  // Commented out temporarily until engagementRoutes exists
+  // const engagementRoutes = require("./routes/engagementRoutes");
+  // app.use("/api/engagement", engagementRoutes);
+} catch (err) {
+  console.error("Error loading routes:", err);
+}
+
+// Default test route
+app.get("/", (req, res) => {
+  res.send("API is running...");
 });
 
 // Start server
-app.listen(process.env.PORT || 5000, () => {
-  console.log("API server running...");
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
