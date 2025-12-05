@@ -5,8 +5,7 @@ export default function Topbar() {
   return (
     <header className="topbar">
       <div>
-        <h1>Welcome back ✨</h1>
-        <p>Continue exploring or create a new story.</p>
+        <p>Some search bar exists....</p>
       </div>
 
       <div className="topbar-right">
