@@ -18,13 +18,13 @@ mongoose
 // Routes
 try {
   const userRoutes = require("./routes/userRoutes");
-  const storyRoutes = require("./routes/storyRoutes");
-  const blogRoutes = require("./routes/blogRoutes");
+  //const storyRoutes = require("./routes/storyRoutes");
+  //const blogRoutes = require("./routes/blogRoutes");
 
   // ✅ Mount routes
   app.use("/api/users", userRoutes);
-  app.use("/api/stories", storyRoutes);
-  app.use("/api/blogs", blogRoutes);
+  //app.use("/api/stories", storyRoutes);
+  //app.use("/api/blogs", blogRoutes);
 
   // Commented out temporarily until engagementRoutes exists
   // const engagementRoutes = require("./routes/engagementRoutes");
