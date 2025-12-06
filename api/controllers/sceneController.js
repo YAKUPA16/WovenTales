@@ -19,6 +19,7 @@ exports.createScene = async (req, res) => {
     }
 };
 
+//don't think this ones needed
 exports.getChildren = async (req, res) => {
     const sceneId = req.params.id;
     try {
@@ -28,7 +29,7 @@ exports.getChildren = async (req, res) => {
         res.status(500).json({ error: 'Failed to retrieve child scenes' });
     }   
 };
-
+//or this one
 exports.togglelike = async (req, res) => {
     const sceneId = req.params.id;
     const userId = req.user ? req.user._id : null;
@@ -50,7 +51,7 @@ exports.togglelike = async (req, res) => {
         res.status(500).json({ error: 'Failed to toggle like' });
     }
 };
-
+// or this either
 exports.markEnding = async (req, res) => {
     const sceneId = req.params.id;
     const userId = req.user ? req.user._id : null;
@@ -68,7 +69,7 @@ exports.markEnding = async (req, res) => {
         res.status(500).json({ error: 'Failed to mark scene as an ending' });
     }
 };
-
+// don't know about this one either
 exports.getScene = async (req, res) => {
     try {
         const scene = await Scene.findById(req.params.id).populate('author', 'username');
