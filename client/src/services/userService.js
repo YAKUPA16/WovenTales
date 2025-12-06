@@ -11,6 +11,19 @@ export const login = async ({ email, password }) => {
 };
 
 export const getProfile = async () => {
-    const res = await axios.get('/users/profile');
-    return res.data;
+  const res = await axios.get('/users/profile');
+  return res.data;
+};
+
+// UPDATED: now sends FormData instead of URL string
+export const updateAvatar = async (formData) => {
+  const res = await axios.put('/users/avatar', formData, {
+    headers: { "Content-Type": "multipart/form-data" }
+  });
+  return res.data;
+};
+// ✅ NEW: update profile info (username, email, description, bgColor)
+export const updateProfile = async ({ username, email, description, bgColor }) => {
+  const { data } = await axios.put('/users/update', { username, email, description, bgColor });
+  return data;
 };
