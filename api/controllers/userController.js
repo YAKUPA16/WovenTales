@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Story = require("../models/Story"); // ✅ ADD THIS
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
@@ -49,10 +50,26 @@ const loginUser = async (req, res) => {
   }
 };
 
-// Get Profile
+// Get Profile (✅ now includes likedStoriesCount)
 const getUserProfile = async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.json(user);
+  try {
+    const userId = req.user?.id || req.user?._id;
+    if (!userId) return res.status(401).json({ message: "Not authorized" });
+
+    const user = await User.findById(userId).select("-password").lean();
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // ✅ count stories where this userId is inside likes[]
+    const likedStoriesCount = await Story.countDocuments({ likes: userId });
+
+    return res.json({
+      ...user,
+      likedStoriesCount,
+    });
+  } catch (err) {
+    console.error("Get profile error:", err);
+    res.status(500).json({ message: "Server error fetching profile" });
+  }
 };
 
 // Update Avatar
@@ -83,7 +100,7 @@ const updateUserProfile = async (req, res) => {
       req.user.id,
       { username, email, description, bgColor },
       { new: true }
-    ).select('-password');
+    ).select("-password");
 
     res.json(updatedUser);
   } catch (err) {

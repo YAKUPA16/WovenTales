@@ -1,14 +1,18 @@
 // [Backend] api/routes/storyRoutes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const storyController = require('../controllers/storyController');
 
-router.post('/', storyController.createStory);
-router.get('/:id', storyController.getStory);
+const { protect } = require("../middleware/authMiddleware");
+const {
+  getStoryDetails,
+  addComment,
+  toggleLike,
+  rateStory,
+} = require("../controllers/storyController");
 
-router.get('/', storyController.getAllPrompts);
-router.get('/type/ongoing', storyController.getOngoingStories);
-router.get('/type/finished', storyController.getFinishedStories);
+router.get("/:id", protect, getStoryDetails);
+router.post("/:id/comments", protect, addComment);
+router.post("/:id/like", protect, toggleLike);
+router.post("/:id/rate", protect, rateStory);
 
 module.exports = router;
-

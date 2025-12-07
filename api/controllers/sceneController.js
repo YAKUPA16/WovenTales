@@ -1,79 +1,81 @@
 const Scene = require('../models/Scene');
-const Story = require('../models/Story');
 
-module.exports = {
+exports.createScene = async (req, res) => {
+    const { storyId, parentId, text } = req.body;
+    const author = req.user ? req.user._id : null;
 
-    // -------------------------------
-    // 1. Add a new scene (branch)
-    // -------------------------------
-    createScene: async (req, res) => {
-        try {
-            const { storyId, parentId, author, text } = req.body;
-
-            const newScene = new Scene({
-                storyId,
-                parentId,
-                author,
-                text
-            });
-
-            await newScene.save();
-
-            // If this is the first scene, set it as root
-            const story = await stories.findById(storyId);
-            if (!story.rootScene) {
-                story.rootScene = newScene._id;
-                await story.save();
-            }
-
-            res.json(newScene);
-
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+    try {
+        // if parentId provided, verify that parent is not an ending
+        if (parentId) {
+            const parentScene = await Scene.findById(parentId);
+            if (!parentScene) return res.status(400).json({ error: 'Parent scene not found' });
+            if (parentScene.hasEnded) return res.status(400).json({ error: 'Cannot add a child to an ending scene' });
         }
-    },
 
-    // -------------------------------
-    // 2. Mark a scene as End
-    // -------------------------------
-    endScene: async (req, res) => {
-        try {
-            const sceneId = req.params.id;
+        const scene = await Scene.create({ storyId, parentId: parentId || null,  author, text });
+        res.status(201).json(scene);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to create scene' });
+    }
+};
 
-            const scene = await Scene.findById(sceneId);
-            scene.hasEnded = true;
-            await scene.save();
+//don't think this ones needed
+exports.getChildren = async (req, res) => {
+    const sceneId = req.params.id;
+    try {
+        const children = await Scene.find({ parentId: sceneId }).populate('author', 'username');
+        res.status(200).json(scenes);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to retrieve child scenes' });
+    }   
+};
+//or this one
+exports.togglelike = async (req, res) => {
+    const sceneId = req.params.id;
+    const userId = req.user ? req.user._id : null;
+    if (!userId) return res.status(401).json({ error: 'Authentication required' });
 
-            res.json({ message: "Scene marked as ended", scene });
+    try {
+        const scene = await Scene.findById(sceneId);
+        if (!scene) return res.status(404).json({ error: 'Scene not found' });
 
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+        const idx = scene.likes.findindexOf(id => id.toString() === userId.toString());
+        if (idx === -1) {
+            scene.likes.push(userId);
+        } else {
+            scene.likes.splice(idx, 1);
         }
-    },
-
-    // -------------------------------
-    // 3. Like / Unlike a scene
-    // -------------------------------
-    toggleLike: async (req, res) => {
-        try {
-            const sceneId = req.params.id;
-            const userId = req.body.userId;
-
-            const scene = await Scene.findById(sceneId);
-
-            const index = scene.likes.indexOf(userId);
-
-            if (index === -1) {
-                scene.likes.push(userId);
-            } else {
-                scene.likes.splice(index, 1);
-            }
-
-            await scene.save();
-            res.json(scene);
-
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+        await scene.save();
+        res.status(200).json({ likesCount: scene.likes.length, liked: idx === -1 });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to toggle like' });
+    }
+};
+// or this either
+exports.markEnding = async (req, res) => {
+    const sceneId = req.params.id;
+    const userId = req.user ? req.user._id : null;
+    if (!userId) return res.status(401).json({ error: 'Authentication required' });
+    try {
+        const scene = await Scene.findById(sceneId);
+        if (!scene) return res.status(404).json({ error: 'Scene not found' });
+        if (scene.author.toString() !== userId.toString()) {
+            return res.status(403).json({ error: 'Only the author can mark this scene as an ending' });
         }
+        scene.hasEnded = true;
+        await scene.save();
+        res.status(200).json({ message: 'Scene marked as an ending' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to mark scene as an ending' });
+    }
+};
+// don't know about this one either
+exports.getScene = async (req, res) => {
+    try {
+        const scene = await Scene.findById(req.params.id).populate('author', 'username');
+        if (!scene) return res.status(404).json({ error: 'Scene not found' });
+        res.status(200).json(scene);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to retrieve scene' });
     }
 };
