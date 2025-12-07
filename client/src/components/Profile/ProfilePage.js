@@ -73,7 +73,13 @@ const Profile = () => {
   return (
     <div
       className="profile-page"
-      style={{ backgroundColor: bgColor, minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
+      style={{
+        backgroundColor: bgColor,
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       <div className="profile-card">
         {/* Profile Header */}
@@ -97,6 +103,10 @@ const Profile = () => {
         <div className="profile-details">
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
+
+          {/* ✅ NEW: liked stories count */}
+          <p><strong>Liked Stories:</strong> {user.likedStoriesCount ?? 0}</p>
+
           <p><strong>Bio:</strong> {description || "No description set."}</p>
         </div>
 
