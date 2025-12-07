@@ -1,0 +1,109 @@
+# ====================
+# Work Distribution
+# ====================
+
+Choose your parts wisely! Below is a suggested distribution of roles and responsibilities 
+for each member
+------------------------------------------------------------------------------------
+| Member                | MERN Components They Handle                              |
+| --------------------- | -------------------------------------------------------- |
+| 1 — Story System      | Story + Scene models, story engine API, scene linking UI |
+| 2 — User System       | Login, Signup, JWT auth, profiles, dashboard             |
+| 3 — Engagement System | Search, filters, ratings, comments, likes                |
+| 4 — UI/UX + Blogs     | Navbar, sidebar, layout, blogs, admin panel, contact     |
+------------------------------------------------------------------------------------
+
+# -------- API (Backend) --------
+api/
+ ├── index.js             # Main Express server; sets up middleware + MongoDB
+ ├── .env                 # Secrets: Mongo URI, PORT, JWT keys
+ ├── package.json         # NPM dependencies and scripts
+
+ ├── models/              # MongoDB schemas
+ │    ├── User.js         # Member 2: Users, auth, profiles
+ │    ├── Story.js        # Member 1: Stories & branching logic
+ │    └── Blog.js         # Member 4: Blogs
+
+ ├── routes/              # Express API endpoints
+ │    ├── userRoutes.js       # Member 2
+ │    ├── storyRoutes.js      # Member 1
+ │    ├── blogRoutes.js       # Member 4
+ │    └── engagementRoutes.js # Member 3
+
+ ├── controllers/         # Route logic
+ │    ├── userController.js       # Member 2
+ │    ├── storyController.js      # Member 1
+ │    ├── blogController.js       # Member 4
+ │    └── engagementController.js # Member 3
+
+ └── engagement/          # Member 3’s backend folder
+      ├── engagementController.js
+      └── engagementRoutes.js
+
+# -------- CLIENT (Frontend) --------
+client/src/
+│
+├── App.js                  # Routing + layout
+├── index.js                # React entry point
+│
+├── pages/
+│   └── Dashboard/          # Shared landing page, each member affects different sections
+│       ├── Dashboard.js    
+│       └── Dashboard.css
+│
+├── components/
+│
+│   ├── Story/                      # Member 1: Story Engine UI
+│   │     ├── ReaderPanel/          # Scene choices, branching view
+│   │     │     ├── ReaderPanel.js
+│   │     │     └── ReaderPanel.css
+│   │     ├── StoryEditor/          # Create scenes, add branches
+│   │     ├── StoryTree/            # Visualization (optional)
+│   │     └── index.js
+│
+│   ├── Profile/                    # Member 2: Auth & User System
+│   │     ├── Login.js
+│   │     ├── Signup.js
+│   │     ├── ProfilePage.js
+│   │     ├── DashboardWidgets.js   # User stats, user-specific stories
+│   │     └── Profile.css
+│
+│   ├── Engagement/                 # Member 3: Likes, Comments, Ratings, Search
+│   │     ├── PopularStories/
+│   │     │     ├── PopularStories.js
+│   │     │     └── PopularStories.css
+│   │     ├── ContinueStories/
+│   │     │     ├── ContinueStories.js
+│   │     │     └── ContinueStories.css
+│   │     ├── RecentlyAdded/
+│   │     │     ├── RecentlyAdded.js
+│   │     │     └── RecentlyAdded.css
+│   │     ├── Comments/
+│   │     ├── SearchBar/
+│   │     └── Rating.js
+│
+│   ├── Blog/                        # Member 4: Blogs System
+│   │     ├── BlogList.js
+│   │     ├── BlogPage.js
+│   │     ├── BlogEditor.js
+│   │     └── Blog.css
+│
+│   ├── Layout/                      # Member 4
+│   │     ├── Sidebar/
+│   │     │     ├── Sidebar.js
+│   │     │     └── Sidebar.css
+│   │     ├── Topbar/
+│   │     │     ├── Topbar.js
+│   │     │     └── Topbar.css
+│   │     └── Footer.js
+│
+│   └── utils/                       # Shared helpers (if needed)
+│         ├── rating.js
+│         └── authHelpers.js
+│
+└── services/                        # API calls mapped to backend
+      ├── storyService.js            # Member 1
+      ├── userService.js             # Member 2
+      ├── engagementService.js       # Member 3
+      ├── blogService.js             # Member 4
+      └── axiosInstance.js

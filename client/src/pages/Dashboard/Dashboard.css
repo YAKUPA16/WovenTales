@@ -1,0 +1,491 @@
+/* [Frontend] client/src/pages/Dashboard/Dashboard.css */
+
+/* THEME VARIABLES (reliable + avoids conflicts) */
+:root {
+  --bg: #f2f4f7;
+  --card: #ffffff;
+  --text: #0b1b2a;
+  --muted: #677281;
+  --border: #e7ebf0;
+  --shadow: 0 18px 35px rgba(16, 24, 40, 0.08);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b1220;
+  --card: #0f1a2e;
+  --text: #e6edf7;
+  --muted: rgba(230, 237, 247, 0.75);
+  --border: rgba(255, 255, 255, 0.10);
+  --shadow: none;
+}
+
+.db-page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.db-content {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px 18px 60px;
+}
+
+/* -------------------- TOP BAR -------------------- */
+/* sticky + high z-index so nothing can steal clicks */
+.db-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+
+  padding: 12px 0;
+  margin-bottom: 14px;
+
+  /* Important: don’t block clicks with a solid bar */
+  background: transparent;
+}
+
+.db-searchWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06);
+}
+
+.db-searchIcon {
+  opacity: 0.55;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.db-searchInput {
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  background: transparent;
+  color: var(--text);
+}
+
+.db-searchBtn {
+  border: 0;
+  background: #2bb6d9;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(43, 182, 217, 0.22);
+}
+
+.db-searchBtnGhost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.db-topIcons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  /* anchor for dropdown */
+  position: relative;
+}
+
+.db-iconBtn {
+  height: 40px;
+  width: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.db-avatarBtn {
+  position: relative;
+  height: 40px;
+  width: 46px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06);
+  display: grid;
+  place-items: center;
+}
+
+.db-avatar {
+  height: 26px;
+  width: 26px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd87a, #ff7ab6);
+}
+
+.db-avatarDot {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  height: 8px;
+  width: 8px;
+  border-radius: 999px;
+  background: #28c76f;
+  border: 2px solid var(--card);
+}
+
+/* -------------------- HERO -------------------- */
+.db-hero {
+  height: 240px;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 18px 35px rgba(16, 24, 40, 0.12);
+
+  display: flex;
+  align-items: center;
+
+  /* make sure it doesn't overlay topbar */
+  position: relative;
+  z-index: 1;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Fade overlay so text readable */
+.db-heroOverlay {
+  width: 100%;
+  text-align: center;
+  padding: 24px;
+
+  /* this is the fade */
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+}
+
+.db-heroTitle {
+  font-size: 52px;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.db-heroSubtitle {
+  margin: 10px auto 16px;
+  max-width: 720px;
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+.db-heroCta {
+  border: 0;
+  background: #2bb6d9;
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(43, 182, 217, 0.25);
+}
+
+/* -------------------- SECTIONS -------------------- */
+.db-section {
+  margin-top: 18px;
+}
+
+.db-sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.db-sectionTitle {
+  font-size: 40px;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: var(--text);
+}
+
+.db-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.db-carouselCard {
+  padding: 18px;
+}
+
+/* Prompts row */
+.db-promptsRow {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+}
+
+.db-promptsRow::-webkit-scrollbar {
+  height: 10px;
+}
+.db-promptsRow::-webkit-scrollbar-thumb {
+  background: #e6edf5;
+  border-radius: 999px;
+}
+
+.db-promptCard {
+  min-width: 190px;
+  max-width: 190px;
+  min-height: 90px;
+  border-radius: 12px;
+  border: 0;
+  padding: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(16, 24, 40, 0.16);
+}
+
+/* Story rows */
+.db-storyRow {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.db-storyRow::-webkit-scrollbar {
+  height: 10px;
+}
+.db-storyRow::-webkit-scrollbar-thumb {
+  background: #e6edf5;
+  border-radius: 999px;
+}
+
+.db-storyCard {
+  width: 220px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.db-storyImage {
+  height: 160px;
+  border-radius: 14px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 18px 30px rgba(16, 24, 40, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.db-storyImageFallback {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, #1b2433, #3b4a6a);
+}
+
+.db-storyMeta {
+  padding-top: 10px;
+}
+
+.db-storyTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.db-pill {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dff6ff;
+  color: #137ea0;
+  font-weight: 800;
+}
+
+.db-pillGhost {
+  background: rgba(127, 127, 127, 0.12);
+  color: var(--muted);
+}
+
+.db-seeAllWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.db-seeAllBtn {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 10px 22px;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(16, 24, 40, 0.08);
+  font-weight: 700;
+}
+
+.db-state {
+  padding: 14px;
+  margin: 10px 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+}
+
+.db-stateError {
+  border-color: #ffd1d1;
+  background: #fff5f5;
+  color: #a40000;
+}
+
+.db-empty {
+  padding: 14px;
+  color: var(--muted);
+}
+
+/* -------------------- NOTIFICATIONS -------------------- */
+/* single correct dropdown style (remove duplicates) */
+.db-notifs {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 280px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 18px 35px rgba(16, 24, 40, 0.18);
+  padding: 12px;
+  z-index: 10000;
+}
+
+.db-notifsTitle {
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.db-notifItem {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(127, 127, 127, 0.12);
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.db-notifItem:last-child {
+  margin-bottom: 0;
+}
+/* Bigger story cards */
+.db-storyCardBig {
+  width: 300px;          /* was ~220 */
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.db-storyImageBig {
+  height: 200px;         /* was ~160 */
+  width: 100%;
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 18px 30px rgba(16, 24, 40, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.db-storyTitle {
+  font-size: 22px;       /* a bit bigger */
+  font-weight: 900;
+}
+
+/* Row wrapper + arrows */
+.db-rowWrap {
+  position: relative;
+}
+
+.db-storyRowSnapped {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 10px 52px 10px; /* leave space for arrows */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.db-storyRowSnapped > .db-storyCardBig {
+  scroll-snap-align: start;
+}
+
+/* hide scrollbar (optional but clean) */
+.db-storyRowSnapped::-webkit-scrollbar {
+  height: 10px;
+}
+.db-storyRowSnapped::-webkit-scrollbar-thumb {
+  background: #e6edf5;
+  border-radius: 999px;
+}
+
+/* Arrow buttons */
+.db-rowArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 44px;
+  width: 44px;
+  border-radius: 999px;
+  border: 1px solid #e7ebf0;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 24px rgba(16, 24, 40, 0.14);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 3;
+  font-size: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.db-rowArrowLeft {
+  left: 8px;
+}
+
+.db-rowArrowRight {
+  right: 8px;
+}
+
+.db-rowArrow:hover {
+  transform: translateY(-50%) scale(1.05);
+}

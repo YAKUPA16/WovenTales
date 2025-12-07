@@ -1,0 +1,105 @@
+.sidebar {
+  width: 250px;
+  background-color: #0A2740;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 25px 20px;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+}
+
+/* Logo Section */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.circle-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.logo-sub {
+  font-size: 0.75rem;
+  color: #b0c4de;
+}
+
+/* Menu */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.menu li {
+  margin: 15px 0;
+}
+
+.menu li a,
+.menu li button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: 0.2s;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.menu li a:hover,
+.menu li button:hover {
+  background-color: #1E90FF;
+}
+
+.icon {
+  font-size: 1.3rem;
+}
+
+.menu li .logout-btn {
+  background-color: #e74c3c; /* red */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%; /* make it full width inside li */
+  text-align: left; /* align text like menu items */
+  transition: 0.2s;
+}
+
+.menu li .logout-btn:hover {
+  background-color: #c0392b; /* darker red on hover */
+}
+
+
+.sidebar-footer {
+  font-size: 0.75rem;
+  color: #b0c4de;
+  text-align: center;
+  margin-top: 20px;
+}
