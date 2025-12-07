@@ -1,36 +1,47 @@
 import React from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
+import { 
+  AiFillHome, 
+  AiFillStar, 
+  AiOutlineSearch, 
+  AiOutlineFolderOpen, 
+  AiOutlineSetting, 
+  AiOutlineUser, 
+  AiOutlineEdit, 
+  AiOutlineBook 
+} from "react-icons/ai";
 
 export default function Sidebar() {
-  const token = localStorage.getItem("token"); // check login state
+  const token = localStorage.getItem("token");
 
   return (
     <aside className="sidebar">
+      {/* Logo Section */}
       <div className="sidebar-logo">
-        <div className="circle">WT</div>
-        <div>
+        <img src="/WovenTalesFinal.png" alt="logo" className="circle-logo" />
+        <div className="logo-text">
           <div className="logo-title">WovenTales</div>
           <div className="logo-sub">Where stories grow together</div>
         </div>
       </div>
 
+      {/* Menu Items */}
       <ul className="menu">
-        <li><Link to="/">🏠 Home</Link></li>
-        <li><Link to="/editor">✍️ Create Story</Link></li>
-        <li>🌳 My Stories</li>
-        <li>⭐ Favorites</li>
-        <li><Link to="/blogs">📝 Blog</Link></li>
-        <li>🔍 Search</li>
-        <li>📂 Explore</li>
-        <li><Link to="/profile">👤 Profile</Link></li>
-        <li>⚙️ Settings</li>
+        <li><Link to="/"><AiFillHome className="icon"/> Home</Link></li>
+        <li><Link to="/editor"><AiOutlineEdit className="icon"/> Create Story</Link></li>
+        <li><Link to="/"><AiOutlineBook className="icon"/> My Stories</Link></li>
+        <li><Link to="/"><AiFillStar className="icon"/> Favorites</Link></li>
+        <li><Link to="/blogs"><AiOutlineBook className="icon"/> Blog</Link></li>
+        <li><Link to="/"><AiOutlineSearch className="icon"/> Search</Link></li>
+        <li><Link to="/"><AiOutlineFolderOpen className="icon"/> Explore</Link></li>
+        <li><Link to="/profile"><AiOutlineUser className="icon"/> Profile</Link></li>
+        <li><Link to="/editor"><AiOutlineSetting className="icon"/> Settings</Link></li>
 
-        {/* ✅ Auth buttons */}
         {!token && (
           <>
-            <li><Link to="/signup">🔑 Signup</Link></li>
-            <li><Link to="/login">🔓 Login</Link></li>
+            <li><Link to="/signup"><AiOutlineUser className="icon"/> Signup</Link></li>
+            <li><Link to="/login"><AiOutlineUser className="icon"/> Login</Link></li>
           </>
         )}
         {token && (
@@ -39,16 +50,16 @@ export default function Sidebar() {
               className="logout-btn"
               onClick={() => {
                 localStorage.removeItem("token");
-                window.location.href = "/login"; // redirect after logout
+                window.location.href = "/login";
               }}
             >
-              🚪 Logout
+              Logout
             </button>
           </li>
         )}
       </ul>
 
-      <div className="footer">© {new Date().getFullYear()} WovenTales</div>
+      <div className="sidebar-footer">© {new Date().getFullYear()} WovenTales</div>
     </aside>
   );
 }
