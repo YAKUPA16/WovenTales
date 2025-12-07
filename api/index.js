@@ -27,7 +27,12 @@ mongoose
 
 // Routes
 const userRoutes = require("./routes/userRoutes");
+const blogRoutes = require("./routes/blogRoutes");
+const followerRoutes = require("./routes/followerRoutes");
+
 app.use("/api/users", userRoutes);
+app.use("/api/blogs", blogRoutes);
+app.use("/api/followers", followerRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
