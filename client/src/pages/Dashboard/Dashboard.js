@@ -33,23 +33,20 @@ function StoryCard({ story, onClick }) {
       <div
         className="db-storyImage db-storyImageBig"
         style={{
-          backgroundImage: story.coverImageUrl ? `url(${story.coverImageUrl})` : "none",
+          backgroundImage: story.coverImageURL ? `url(${story.coverImageURL})` : "none",
         }}
       >
-        {!story.coverImageUrl && <div className="db-storyImageFallback" />}
+        {!story.coverImageURL && <div className="db-storyImageFallback" />}
       </div>
 
       <div className="db-storyMeta">
         <div className="db-storyTitle">{story.title}</div>
-        {story.genre ? (
-          <div className="db-pill">{story.genre}</div>
-        ) : (
-          <div className="db-pill db-pillGhost">Story</div>
-        )}
+        {/* Optional placeholder for genre removed */}
       </div>
     </button>
   );
 }
+
 
 function ScrollRow({ children, ariaLabel }) {
   const rowRef = useRef(null);
@@ -128,6 +125,7 @@ export default function Dashboard() {
       try {
         setLoading(true);
         const res = await fetchDashboard();
+        console.log("Dashboard data:", res);
         if (!mounted) return;
         setData(res);
         setError("");
@@ -225,14 +223,14 @@ export default function Dashboard() {
   const filteredPopular = useMemo(() => {
     if (!q) return data.popularStories;
     return data.popularStories.filter(
-      (s) => s.title?.toLowerCase().includes(q) || s.genre?.toLowerCase().includes(q)
+      (s) => s.title?.toLowerCase().includes(q)
     );
   }, [q, data.popularStories]);
 
   const filteredCompleted = useMemo(() => {
     if (!q) return data.completedStories;
     return data.completedStories.filter(
-      (s) => s.title?.toLowerCase().includes(q) || s.genre?.toLowerCase().includes(q)
+      (s) => s.title?.toLowerCase().includes(q)
     );
   }, [q, data.completedStories]);
 

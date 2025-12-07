@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const scenesController = require('../controllers/scenesController');
+const sceneController = require('../controllers/sceneController');
 
-router.post('/', scenesController.createScene);
-router.get('/:id/children', scenesController.getChildren);
-router.get('/:id', scenesController.getScene);
-router.get('/', scenesController.getScenesByStory);
-router.post('/:id/like', scenesController.toggleLike);
-router.post('/:id/end', scenesController.markEnding);
+router.post('/', sceneController.createScene);
+router.put('/:id/end', sceneController.endScene);
+router.put('/:id/like', sceneController.toggleLike);
 
 module.exports = router;
