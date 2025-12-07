@@ -389,7 +389,7 @@ export default function Dashboard() {
         <div
           className="db-hero"
           style={{
-            backgroundImage: `url(${process.env.PUBLIC_URL}/images/title.jpg)`,
+            backgroundImage: `url(${process.env.PUBLIC_URL}/title.jpg)`,
           }}
         >
           <div className="db-heroOverlay">
