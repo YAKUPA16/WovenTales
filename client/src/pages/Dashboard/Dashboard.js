@@ -114,7 +114,7 @@ export default function Dashboard() {
       try {
         setLoading(true);
         const res = await fetchDashboard();
-
+        console.log("Dashboard data fetched:", res);
         if (!mounted) return;
 
         const mapStory = (s) => ({
