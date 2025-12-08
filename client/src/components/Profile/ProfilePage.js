@@ -65,10 +65,10 @@ const Profile = () => {
   };
 
   const profileImageUrl = preview
-    ? preview
-    : user.profileImage
-    ? backendUrl + user.profileImage
-    : "/avatars/default.png";
+  ? preview
+  : user.profileImage
+  ? backendUrl + user.profileImage
+  : backendUrl + "/uploads/avatars/avatar.png";
 
   return (
     <div
