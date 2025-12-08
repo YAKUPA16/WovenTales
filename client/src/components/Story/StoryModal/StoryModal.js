@@ -138,7 +138,7 @@ export default function StoryModal({ storyId, open, onClose }) {
               <div className="storymodal-content">
                 {/* If your schema uses a different field than "content", change here */}
                 <div className="storymodal-story">
-                  {story.content || story.story || story.summary || "No story text available yet."}
+                  {story.text || story.story || story.summary || "No story text available yet."}
                 </div>
 
                 <div className="storymodal-comments">
@@ -186,3 +186,4 @@ export default function StoryModal({ storyId, open, onClose }) {
     </div>
   );
 }
+
