@@ -1,56 +1,51 @@
 // [Backend] api/controllers/dashboardController.js
-const Prompt = require("../models/Prompt");
 const Story = require("../models/Story");
-const StoryProgress = require("../models/StoryProgress");
+const Scene = require("../models/Scene");
+const User = require("../models/User");
 
 exports.getDashboard = async (req, res) => {
   try {
+    // Dashboard data (popular / reader panel) should be viewable without authentication.
+    // `req.user` may be present when a client is logged in, but it's not required.
     const userId = req.user?._id;
-    if (!userId) return res.status(401).json({ message: "Not authorized" });
 
-    // 1) Daily prompts
-    const prompts = await Prompt.find({ isActive: true })
-      .sort({ weight: -1, updatedAt: -1 })
-      .limit(5)
-      .lean();
-
-    // 2) Popular stories (top 10 by likesCount, tie-break views, newest)
+    // 1) Popular stories (top 10 by likesCount, tie-break views, newest)
     const popularStories = await Story.aggregate([
-      { $match: { status: "published" } },
+      { $match: { } },
       { $addFields: { likesCount: { $size: { $ifNull: ["$likes", []] } } } },
       { $sort: { likesCount: -1, views: -1, createdAt: -1 } },
-      { $limit: 10 }, // ✅ was 4
+      { $limit: 25 },
       {
         $project: {
+          _id: 1,
           title: 1,
-          genre: 1,
           coverImageUrl: 1,
           likes: 1,
-          ratings: 1,
-          views: 1,
-          commentsCount: 1,
           likesCount: 1,
+          views: 1,
           createdAt: 1,
         },
       },
     ]);
 
-    // 3) Readers Panel (completed stories for user) -> top 10
-    const completed = await StoryProgress.find({
-      user: userId,
-      status: "completed",
-    })
-      .sort({ completedAt: -1, updatedAt: -1 })
-      .limit(10) // ✅ was 4
-      .populate({
-        path: "story",
-        select: "title genre coverImageUrl likes ratings views commentsCount",
-      })
-      .lean();
+    // 2) Reader Panel: latest 10 published stories (independent of user)
+    const readerPanelStories = await Story.find({ status: "published" })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .lean()
+      .then((stories) =>
+        stories.map((s) => ({
+          ...s,
+          likesCount: Array.isArray(s.likes) ? s.likes.length : 0,
+        }))
+      );
 
-    const completedStories = completed.map((x) => x.story).filter(Boolean);
+    return res.json({
+  prompts: [], // keep empty or add later if you implement prompts
+  popularStories,
+  completedStories: readerPanelStories, // renamed to match frontend's expected key
+});
 
-    return res.json({ prompts, popularStories, completedStories });
   } catch (e) {
     return res.status(500).json({ message: "Dashboard error", error: e.message });
   }

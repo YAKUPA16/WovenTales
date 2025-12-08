@@ -1,3 +1,4 @@
+//sceneController.js
 const Scene = require('../models/Scene');
 
 exports.createScene = async (req, res) => {

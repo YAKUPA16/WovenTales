@@ -13,6 +13,8 @@ import ProfilePage from "./components/Profile/ProfilePage";
 import BlogList from "./components/Blog/BlogList";
 import BlogPage from "./components/Blog/BlogPage";
 import BlogEditor from "./components/Blog/BlogEditor";
+import ReaderPage from "./pages/ReaderPage/ReaderPage";
+
 
 // Auth Components
 import Login from "./components/Profile/Login";
@@ -38,6 +40,7 @@ export default function App() {
                 <Route path="/blogs" element={<BlogList />} />
                 <Route path="/blogs/:id" element={<BlogPage />} />
                 <Route path="/blogs/write" element={<BlogEditor />} />
+                <Route path="/reader/:storyId" element={<ReaderPage />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </div>
