@@ -24,6 +24,7 @@ const storySchema = new mongoose.Schema(
       default: "published",
     },
 
+    text: { type: String, default: "" },   
     // Engagement
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // who liked
     ratings: [ratingSchema], // 1-5 per user
@@ -43,3 +44,4 @@ storySchema.virtual("avgRating").get(function () {
 });
 
 module.exports = mongoose.model("Story", storySchema);
+
