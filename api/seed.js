@@ -178,10 +178,36 @@ async function seedStories(prompts, authorUserId, users) {
     "City of Borrowed Names",
   ];
 
+  const storyTexts = [
+    "Time was never meant to fold, but in the alley behind Barrow Street, the clocks all pointed to different yesterdays. Mira knew the rules: never touch the hands, never step through the hour that isn’t yours. Tonight, the bells chimed thirteen, and a stranger walked out of tomorrow wearing her face.",
+    "The villagers said the wyvern was a myth, a bedtime threat meant to keep children from the cliffs. Yet every dusk, Arlen heard its voice in the wind, ancient and tired. When he finally followed the whispers, they didn’t lead him to a monster—but to a chained guardian begging to be set free.",
+    "The invitation was unsigned, the mask delivered to her window in the dead of night. At the masquerade, no one used real names and the mirrors were draped in velvet. When the music stopped and the lights went out, Elara realized the person wearing her mask across the room wasn’t a reflection.",
+    "Space wasn’t supposed to have echoes, but the signal repeated anyway: a distorted heartbeat pulsing from beyond the edge of the mapped universe. Captain Reyes knew they should turn back. Instead, she ordered the ship forward, chasing the echo that was calling her by a name she hadn’t heard since childhood.",
+    "In the Lantern District, night never really ended—it just flickered between shades of neon and gold. Every lantern carried a memory for sale, sealed in glass and light. When Jun bought the smallest one, the vendor warned, 'Memories don’t like being borrowed.' The flame inside whispered his name before he lit it.",
+    "The lullaby ticked softly from the music box, gears turning in perfect, uneasy rhythm. Children in the city slept dreamlessly, their nightmares siphoned away by unseen hands. When Ori broke the music box open, he didn’t find springs or cogs—only a tiny clockwork heart, still beating and trying to sing.",
+    "They said the paper planes could only fly inside the old studio, where the ceiling was painted like a cloudy sky. Lyra folded her first one with shaking hands, ink still wet with the confession she’d never say out loud. When she threw it, it didn’t fall—it vanished into a wind only it could feel.",
+    "The door appeared between two lockers that had never had space between them before. Its frame glittered faintly, like a held breath. Sam touched the sapphire knob and felt oceans surge behind it, storms and stories pressing to get out. The sign above it read: 'Authorized Imagination Only.'",
+    "The city didn’t sleep—it hummed, neon signs blinking like tired eyes. Kai rode the train that only came after midnight, where the windows showed places that didn’t exist on any map. One night, his reflection stayed behind when he stepped off, and the glass flashed a world where he had never been born.",
+    "The library had no entrance during the day. At night, its doors grew out of the fog between two abandoned shops. Shelves towered into darkness, filled with books bound in unfamiliar materials. When Rhea pulled one free, it pulsed like a heartbeat, and the title rearranged itself to spell her deepest fear.",
+    "Every time the fire roared to life, it sang. Not in words, but in notes that tasted like ash and sugar, loss and promise. Niko was the only one who could hear the melody woven into the flames. When the cinders rose and spiraled into shapes of people long gone, he realized the song was a warning.",
+    "The observatory had been closed for years, yet the telescope still turned on its own every clear night. Lira wiped the dust from the lens and peered through, expecting stars. Instead she saw a desk, a lamp, and a version of herself in another universe, writing a story that ended with her name.",
+    "The greenhouse in the center of town had no door, just panes of stained glass painted with flowers no one could name. When the first crack appeared, light leaked out like liquid. Emil slipped through and found a garden where every petal reflected memories he hadn’t lived yet—and some he hoped never to.",
+    "The staircase descended into water that glowed faintly, like moonlight caught in glass. No one remembered when it had appeared in the middle of the plaza. Children dropped wishes folded into paper boats and watched them sink. Mara took a breath, stepped onto the first wet step, and felt someone else exhale for her.",
+    "Rain fell only over the city’s oldest district, never touching the shining towers. Ink pooled in the gutters instead of water, swirling with half-formed words. Theo dipped his fingers in and came back with stories staining his skin. Every storm left him with new lines—and with voices that weren’t his.",
+    "The comet was supposed to pass silently, another streak of light across the sky. Instead, it stopped—hung there, like a marble placed gently on black velvet. When the first shards began to fall, they weren’t hot or burning. They were cold, whispering fragments of forgotten wishes to anyone who caught them.",
+    "In Silverhour, the city between seconds, everyone moved just a little too slowly to see. Everyone except Aya. She slipped through frozen crowds, reading the suspended expressions on strangers’ faces. The more she wandered, the more she saw the cracks in the world’s ticking rhythm—and the thing prying them open.",
+    "The bookshop’s last shelf was always empty, no matter how many times the owner restocked it. When Rowan arrived at closing time, a single book lay there, its cover blank, its pages waiting. As he opened it, ink bled up from the spine, forming the first sentence: 'This is where you choose your ending.'",
+    "The wolves didn’t howl at the moon anymore. They howled at the wind turbines dotting the frozen plains, metal giants turning their backs on the old ways. Yara followed the pack, her breath clouding the air, and found that what they hunted wasn’t prey—it was the last echo of winter’s true name.",
+    "Everyone in the city wore borrowed names, stitched into the collars of their coats. Names were traded, rented, stolen in the night. Eren’s name had never quite fit, hanging heavy on his tongue. When he met the girl with no name at all, the streets whispered, and the city began rearranging its stories around them.",
+  ];
+
   const genres = ["Sci-Fi", "Fantasy", "Mystery", "Horror", "Adventure", "Thriller"];
 
   const base = Array.from({ length: STORY_COUNT }).map((_, i) => ({
     title: titles[i] || `Untitled Story ${i + 1}`,
+    text:
+      storyTexts[i] ||
+      "Once upon a time, a story was waiting to be written, and it chose this page to begin on.",
     genre: genres[i % genres.length],
     coverImageUrl: cloudCovers[i] || localFallback[i % localFallback.length], // ✅ cloudinary for all (fallback if none)
     promptRef: prompts[i % prompts.length]?._id,
@@ -263,7 +289,7 @@ async function seedCommentsForAllUsers(stories) {
     return;
   }
 
-  const randUserId = () => users[Math.floor(Math.random() * users.length)]._id;
+  const randUserId = () => users[Math.floor(Math.random() *(users.length))]._id;
 
   // ✅ spread comments across many stories
   const sampleTexts = [
@@ -340,3 +366,4 @@ run().catch(async (e) => {
   } catch {}
   process.exit(1);
 });
+
