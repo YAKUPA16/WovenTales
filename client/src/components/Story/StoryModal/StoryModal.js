@@ -2,8 +2,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./StoryModal.css";
 import axiosInstance from "../../../services/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 export default function StoryModal({ storyId, open, onClose }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [story, setStory] = useState(null);
   const [comments, setComments] = useState([]);
@@ -138,8 +140,17 @@ export default function StoryModal({ storyId, open, onClose }) {
               <div className="storymodal-content">
                 {/* If your schema uses a different field than "content", change here */}
                 <div className="storymodal-story">
-                  {story.text || story.story || story.summary || "No story text available yet."}
+                  {story.storyText || story.text || story.summary || "No story text available yet."}
                 </div>
+
+                {/*Reader's Vie buttons */}
+                  <button 
+                    className="comment-send"
+                    onClick={() => navigate(`/reader/${storyId}`)}
+                  >
+                    Read Story
+                  </button>
+
 
                 <div className="storymodal-comments">
                   <div className="comments-title">

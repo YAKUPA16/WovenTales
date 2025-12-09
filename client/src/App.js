@@ -4,15 +4,18 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 // Layout Components
 import Sidebar from "./components/Layout/Sidebar/Sidebar";
 import Topbar from "./components/Layout/Topbar/Topbar";
-import Footer from "./components/Layout/Footer/Footer"; // <-- Footer import
+import Footer from "./components/Layout/Footer/Footer";
 
 // Pages
 import Dashboard from "./pages/Dashboard/Dashboard.js";
-import StoryEditor from "./components/Story/StoryEditor/StoryEditor";
 import ProfilePage from "./components/Profile/ProfilePage";
 import BlogList from "./components/Blog/BlogList";
 import BlogPage from "./components/Blog/BlogPage";
 import BlogEditor from "./components/Blog/BlogEditor";
+import ReaderPage from "./pages/ReaderPage/ReaderPage";
+import StoryCreater from "./pages/StoryCreation/StoryCreater";
+import MyStories from "./pages/MyStories/MyStories";
+import ExplorePage from "./pages/ExplorePage/ExplorePage";
 
 // Auth Components
 import Login from "./components/Profile/Login";
@@ -33,15 +36,18 @@ export default function App() {
             <div style={{ flex: 1 }}>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
-                <Route path="/editor" element={<StoryEditor />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/blogs" element={<BlogList />} />
                 <Route path="/blogs/:id" element={<BlogPage />} />
                 <Route path="/blogs/write" element={<BlogEditor />} />
+                <Route path="/reader/:storyId" element={<ReaderPage />} />
+                <Route path="/create-story" element={<StoryCreater />} />
+                <Route path="/my-stories" element={<MyStories />} />
+                <Route path="/explore" element={<ExplorePage />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </div>
-            <Footer /> {/* Footer at the bottom */}
+            <Footer />
           </main>
         </div>
       ) : (
