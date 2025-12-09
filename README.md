@@ -74,14 +74,17 @@ WovenTales/
 │ ├── models/
 │ ├── routes/
 │ └── server.js
+│ └── package.json      <- Backend dependencies
 │
 ├── src/ # Frontend
 │ ├── components/
 │ ├── pages/
 │ ├── services/
 │ └── App.js
+│ └── package.json      <- Frontend dependencies
 │
 └── README.md
+└── LICENSE
 ```
 ---
 
