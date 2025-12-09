@@ -120,11 +120,12 @@ export default function Dashboard() {
           likesCount: Array.isArray(s.likes) ? s.likes.length : s.likesCount || 0,
         });
 
-        setData({
-          popularStories: res.popularStories.map(mapStory),
-          completedStories: res.completedStories.map(mapStory),
-          prompts: [],
-        });
+       setData({
+  popularStories: res.popularStories.map(mapStory),
+  completedStories: res.completedStories.map(mapStory),
+  prompts: res.prompts || [],
+});
+
 
         setError("");
       } catch (e) {
