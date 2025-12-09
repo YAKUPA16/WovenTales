@@ -1,3 +1,11 @@
+// This component handles the entire user login process. It validates the email/password,
+// sends the login request to the backend, and receives a JWT token in response.
+// The JWT (JSON Web Token) is then stored in localStorage so it can be sent automatically
+// with future API requests for authentication. The axiosInstance attaches this JWT to every
+// request, allowing the backend to verify the user without needing to log in again.
+// The component also includes form validation, password visibility toggle, error display,
+// and redirects the user upon successful login.
+
 import React, { useState } from "react";
 import { login } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
