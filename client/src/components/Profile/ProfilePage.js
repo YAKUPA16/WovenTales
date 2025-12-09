@@ -1,3 +1,9 @@
+// This component displays and manages the user's profile. It loads the logged-in user’s data
+// using the JWT token automatically attached by axiosInstance. Because the backend verifies
+// the JWT, only authenticated users can access their profile. The page allows users to: View basic profile info (username, email, join date, liked stories count)
+// ,Upload and preview a new profile picture using FormData and update profile settings like display name, email, bio/description, and background color
+// Every update request is sent with the stored JWT token, ensuring secure access to protected profile routes. The component also handles state updates, preview images, and UI interactions.
+
 import React, { useEffect, useState } from "react";
 import { getProfile, updateAvatar, updateProfile } from "../../services/userService";
 import "./Profile.css";
@@ -65,15 +71,21 @@ const Profile = () => {
   };
 
   const profileImageUrl = preview
-    ? preview
-    : user.profileImage
-    ? backendUrl + user.profileImage
-    : "/avatars/default.png";
+  ? preview
+  : user.profileImage
+  ? backendUrl + user.profileImage
+  : backendUrl + "/uploads/avatars/avatar1.png";
 
   return (
     <div
       className="profile-page"
-      style={{ backgroundColor: bgColor, minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
+      style={{
+        backgroundColor: bgColor,
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       <div className="profile-card">
         {/* Profile Header */}
@@ -97,6 +109,10 @@ const Profile = () => {
         <div className="profile-details">
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
+
+          {/* ✅ NEW: liked stories count */}
+          <p><strong>Liked Stories:</strong> {user.likedStoriesCount ?? 0}</p>
+
           <p><strong>Bio:</strong> {description || "No description set."}</p>
         </div>
 

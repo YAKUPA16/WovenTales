@@ -1,52 +1,138 @@
+/* client/src/pages/ReaderPage/ReaderPage.css */
+
 .reader-page {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background: var(--card);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem 1.5rem;
+  background-color: #f2f4f7;
+  color: #0b1b2a;
+  font-family: sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 12px 24px rgba(16, 24, 40, 0.1);
 }
 
+/* Header with Back Button */
+.reader-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* Circular Back Button */
+.reader-back-btn {
+  background-color: #2bb6d9;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(43, 182, 217, 0.4);
+}
+
+.reader-back-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(43, 182, 217, 0.5);
+}
+
+/* Scene author */
+.scene-author {
+  font-size: 14px;
+  color: #677281;
+  margin-bottom: 12px;
+}
+
+/* Scene text */
 .scene-text {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
+
+/* Choices */
+.scene-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .scene-choices button {
-  display: block;
-  margin: 10px 0;
   padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
   background-color: #2bb6d9;
   color: #fff;
-  border: none;
-  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 700;
+  transition: background 0.2s, transform 0.2s;
 }
+
+.scene-choices button:hover {
+  background-color: #22a0c1;
+  transform: scale(1.02);
+}
+
+.scene-choices button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Ending message */
+.scene-ended {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f44336;
+  margin-bottom: 20px;
+}
+
+/* Create Story Button */
 .create-story-wrapper {
-  margin-top: 24px;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .create-story-button {
-  background-color: #e53935;   /* red */
-  color: white;
-  padding: 10px 22px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background-color: #2bb6d9;
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
+  color: #fff;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 12px 24px rgba(43, 182, 217, 0.25);
+  transition: transform 0.2s, background 0.2s;
 }
 
 .create-story-button:hover {
-  background-color: #c62828;   /* darker red */
+  transform: scale(1.05);
+  background-color: #22a0c1;
 }
-.scene-choices {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap; /* optional: moves to next line if too long */
-  margin-top: 12px;
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .reader-page {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .reader-back-btn {
+    height: 36px;
+    width: 36px;
+  }
+
+  .scene-text {
+    font-size: 15px;
+  }
+
+  .scene-choices button {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
 }

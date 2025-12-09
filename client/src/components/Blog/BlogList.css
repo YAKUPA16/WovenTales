@@ -3,23 +3,23 @@
   gap: 20px;
   padding: 20px;
   font-family: 'Arial', sans-serif;
-  background-color: #f5f5f5;
-
-  justify-content: flex-start; /* sidebar on right always */
+  background-color: var(--bg);
+  justify-content: flex-start; /* sidebar on right */
   align-items: flex-start;
 }
 
 .rightSidebar {
-  flex: 0 0 250px; 
-  min-width: 250px;     
-  max-width: 250px;   
+  flex: 0 0 250px;
+  min-width: 250px;
+  max-width: 250px;
   background: transparent;
 }
 
+/* Following card */
 .following-card {
-  background: #fff;
+  background: var(--card);
   border-radius: 10px;
-  box-shadow: 0px 4px 7px #171a1f21;
+  box-shadow: var(--shadow);
   padding: 15px;
   margin-top: 20px;
 }
@@ -27,7 +27,7 @@
 .following-card h3 {
   margin-bottom: 10px;
   font-size: 18px;
-  color: #111111;
+  color: var(--text);
 }
 
 .following-user {
@@ -35,7 +35,7 @@
   align-items: center;
   gap: 10px;
   padding: 6px 0;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid var(--border);
   font-size: 14px;
 }
 
@@ -50,37 +50,40 @@
   object-fit: cover;
 }
 
+/* Cards container */
 .cards-container {
-  flex: 1;         
-  min-width: 0; 
-  column-count: 3;      /*appear like 3 cols*/
+  flex: 1;
+  min-width: 0;
+  column-count: 3;
   column-gap: 20px;
 }
 
+/* Blog card */
 .blog-card {
-  background: #fff;
+  background: var(--card);
   border-radius: 10px;
-  box-shadow: 0px 4px 7px #171a1f21, 0px 0px 2px #171a1f14;
+  box-shadow: var(--shadow);
   overflow: hidden;
   flex-direction: column;
   cursor: pointer;
   transition: 0.2s ease;
-  display: inline-block;    /* to make similar design like google keep notes */
-  width: 100%;   
-  margin-bottom: 20px; 
-  
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
 }
+
 .blog-card:hover {
   transform: translateY(-4px);
 }
 
+/* Top bar */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  background-color: #fafafa;
-  border-bottom: 1px solid #eee;
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
   min-height: 36px;
   width: 100%;
   box-sizing: border-box;
@@ -88,7 +91,7 @@
 
 .follow-btn {
   background-color: #007bff;
-  color: #fff;
+  color: var(--card);
   border: none;
   padding: 4px 10px;
   border-radius: 5px;
@@ -98,7 +101,7 @@
 
 .menu-icon {
   font-size: 18px;
-  color: #555;
+  color: var(--muted);
   cursor: pointer;
 }
 
@@ -118,12 +121,12 @@
 .blog-content h2 {
   font-size: 16px;
   margin: 0;
-  color: #111;
+  color: var(--text);
 }
 
 .blog-content small {
   font-size: 12px;
-  color: #666;
+  color: var(--muted);
 }
 
 .tags {
@@ -133,25 +136,24 @@
 }
 
 .tag {
-  background-color: #e0e0e0;
+  background-color: var(--border);
   padding: 2px 6px;
   border-radius: 5px;
   font-size: 11px;
-  color: #333;
+  color: var(--text);
 }
 
 .blog-text {
   font-size: 13px;
-  color: #444;
+  color: var(--text);
   margin-top: 5px;
   line-height: 1.4;
 }
 
-
 /* Sidebar text */
 .sidebar h2,
 .sidebar p {
-  color: #000;
+  color: var(--text);
 }
 
 /* Tabs */
@@ -162,7 +164,7 @@
   }
 
   .cards-container {
-    column-count: 2;      /* 2 columns on tablets */
+    column-count: 2;
     column-gap: 15px;
   }
 
@@ -181,7 +183,7 @@
   }
 
   .cards-container {
-    column-count: 1;      /* 1 column on phone */
+    column-count: 1;
     column-gap: 0;
   }
 
@@ -190,7 +192,7 @@
   }
 
   .rightSidebar {
-    order: -1; /* move sidebar to TOP */
+    order: -1;
     width: 100%;
   }
 
@@ -198,12 +200,14 @@
     margin-top: 10px;
   }
 }
+
+/* Floating add button */
 .floating-add-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
   background-color: #4A90E2;
-  color: #fff;
+  color: var(--card);
   border: none;
   border-radius: 50%;
   width: 60px;
@@ -213,7 +217,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow);
   z-index: 1000;
 }
 

@@ -1,6 +1,7 @@
 // client/src/pages/ReaderPage/ReaderPage.js
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import axiosInstance from "../../services/axiosInstance";
 import "./ReaderPage.css";
 
@@ -52,9 +53,7 @@ export default function ReaderPage() {
   const findSceneById = (id) =>
     scenes.find((s) => String(s._id) === String(id)) || null;
 
-  /** --------------------------
-   *  Author Name Resolution
-   *  -------------------------- */
+  /** Author Name Resolution */
   let authorLabel = "Unknown author";
   const author = currentScene.author;
 
@@ -75,8 +74,17 @@ export default function ReaderPage() {
 
   return (
     <div className="reader-page">
-      {/* Story title */}
-      <h1>{title}</h1>
+      {/* Header with Back Button */}
+      <div className="reader-header">
+        <button
+          className="reader-back-btn"
+          onClick={() => navigate(-1)}
+          title="Go Back"
+        >
+          <ArrowLeft size={20} color="#fff" />
+        </button>
+        <h1>{title}</h1>
+      </div>
 
       {/* Scene author */}
       <div className="scene-author">By {authorLabel}</div>
