@@ -7,7 +7,7 @@
 
 <p align="left">
   <img src="https://img.shields.io/badge/Status-Active-success?style=flat-square" />
-  <img src="https://img.shields.io/github/license/YAKUPA16/WovenTales?style=flat-square" />
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License" />
   <img src="https://img.shields.io/badge/Frontend-React-blue?style=flat-square" />
   <img src="https://img.shields.io/badge/Backend-Node.js-green?style=flat-square" />
   <img src="https://img.shields.io/badge/Database-MongoDB-brightgreen?style=flat-square" />
