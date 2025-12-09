@@ -1,7 +1,6 @@
 // [Backend] api/models/Story.js
 const mongoose = require("mongoose");
 
-// rating subdocument
 const ratingSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -13,33 +12,24 @@ const ratingSchema = new mongoose.Schema(
 const storySchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
+    genre: { type: String, trim: true }, // used for the little pill under title
+    coverImageUrl: { type: String, default: "" }, // card image
+    promptRef: { type: mongoose.Schema.Types.ObjectId, ref: "Prompt" },
 
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
-    genre: { type: String, trim: true }, // optional tag/pill
-
-    // Entry point for interactive stories
-    firstScene: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Scene",
-      default: null,
-    },
-
-    coverImageUrl: { type: String, default: "" }, // card image
-storyText:{ type: String, default: "" },
     status: {
       type: String,
       enum: ["draft", "published"],
       default: "published",
     },
 
-    // Linear story text (for non-branching or summary)
-    text: { type: String, default: "" },
-
+    text: { type: String, default: "" },   
     // Engagement
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    ratings: [ratingSchema],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // who liked
+    ratings: [ratingSchema], // 1-5 per user
 
+    // Fast query fields (computed)
     commentsCount: { type: Number, default: 0 },
     views: { type: Number, default: 0 },
   },
@@ -54,3 +44,4 @@ storySchema.virtual("avgRating").get(function () {
 });
 
 module.exports = mongoose.model("Story", storySchema);
+
