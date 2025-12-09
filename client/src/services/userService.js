@@ -1,3 +1,7 @@
+// This file contains all user-related API functions (signup, login, profile, avatar updates).
+// Each function sends requests through our axiosInstance, so the JWT token is automatically
+// included. This keeps all authentication and profile API calls organized in one place.
+
 import axios from './axiosInstance';
 
 export const signup = async ({ username, email, password }) => {
