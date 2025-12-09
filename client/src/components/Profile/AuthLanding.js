@@ -1,4 +1,10 @@
 // components/Profile/AuthLanding.js
+// This is the public landing page shown before login. It does not use JWT because it is
+// accessible to all users. The component displays the platform's introduction, hero section,
+// features, story categories, how-it-works steps, contact info, embedded map, and footer.
+// It mainly serves as a visually rich entry point that guides users toward Login or Signup,
+// using React Router navigation
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./AuthLanding.css";
