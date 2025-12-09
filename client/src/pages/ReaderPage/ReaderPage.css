@@ -24,3 +24,29 @@
   cursor: pointer;
   font-weight: 700;
 }
+.create-story-wrapper {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.create-story-button {
+  background-color: #e53935;   /* red */
+  color: white;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create-story-button:hover {
+  background-color: #c62828;   /* darker red */
+}
+.scene-choices {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* optional: moves to next line if too long */
+  margin-top: 12px;
+}

@@ -1,12 +1,25 @@
-const express = require('express');
+// [Backend] api/routes/sceneRoutes.js
+const express = require("express");
 const router = express.Router();
-const scenesController = require('../controllers/scenesController');
+const { protect } = require("../middleware/authMiddleware");
+const sceneController = require("../controllers/sceneController");
 
-router.post('/', scenesController.createScene);
-router.get('/:id/children', scenesController.getChildren);
-router.get('/:id', scenesController.getScene);
-router.get('/', scenesController.getScenesByStory);
-router.post('/:id/like', scenesController.toggleLike);
-router.post('/:id/end', scenesController.markEnding);
+// CREATE scene
+router.post("/", protect, sceneController.createScene);
+
+// GET children of a scene
+router.get("/:id/children", protect, sceneController.getChildren);
+
+// GET single scene
+router.get("/:id", protect, sceneController.getScene);
+
+// GET all scenes for a story (?story=ID)
+router.get("/", protect, sceneController.getScenesByStory);
+
+// TOGGLE like
+router.post("/:id/like", protect, sceneController.toggleLike);
+
+// MARK ending
+router.post("/:id/end", protect, sceneController.markEnding);
 
 module.exports = router;

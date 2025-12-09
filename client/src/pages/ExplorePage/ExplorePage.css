@@ -1,0 +1,49 @@
+.explore-container {
+  padding: 20px;
+}
+
+.explore-title {
+  color: white;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Masonry */
+.masonry-grid {
+  display: flex;
+  margin-left: -15px; 
+  width: auto;
+}
+
+.masonry-column {
+  padding-left: 15px; 
+  background-clip: padding-box;
+}
+
+.story-card {
+  background-color: #1b1b1b;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  padding: 15px;
+  color: white;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.story-img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.story-title {
+  font-size: 18px;
+  margin: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.story-desc {
+  font-size: 14px;
+  opacity: 0.8;
+}

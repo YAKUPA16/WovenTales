@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "/api", // <- relative path fallback
+  baseURL: process.env.REACT_APP_API_URL || "/api",
 });
 
 axiosInstance.interceptors.request.use(

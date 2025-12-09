@@ -140,19 +140,17 @@ export default function StoryModal({ storyId, open, onClose }) {
               <div className="storymodal-content">
                 {/* If your schema uses a different field than "content", change here */}
                 <div className="storymodal-story">
-                  {story.content || story.story || story.summary || "No story text available yet."}
+                  {story.storyText || story.text || story.summary || "No story text available yet."}
                 </div>
 
                 {/*Reader's Vie buttons */}
                   <button 
                     className="comment-send"
-                    onClick={() => {
-                      navigate(`/ReaderPage/${story._id}`);
-                      onClose();
-                    }}
+                    onClick={() => navigate(`/reader/${storyId}`)}
                   >
                     Read Story
                   </button>
+
 
                 <div className="storymodal-comments">
                   <div className="comments-title">

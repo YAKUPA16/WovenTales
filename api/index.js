@@ -39,6 +39,7 @@ const storyRoutes = require("./routes/storyRoutes");
 const testRoutes = require("./routes/testRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const followerRoutes = require("./routes/followerRoutes");
+const sceneRoutes = require("./routes/sceneRoutes");
 
 // Mount routes
 app.use("/api/users", userRoutes);
@@ -47,6 +48,8 @@ app.use("/api/stories", storyRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/followers", followerRoutes);
+app.use("/api/scenes", sceneRoutes);
+app.use("/api/explorer", require("./routes/explorerRoutes"));
 
 // Default test route
 app.get("/", (req, res) => {

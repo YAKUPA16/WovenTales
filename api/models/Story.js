@@ -1,23 +1,56 @@
-// models/Story.js
+// [Backend] api/models/Story.js
 const mongoose = require("mongoose");
 
-const StorySchema = new mongoose.Schema(
+// rating subdocument
+const ratingSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    value: { type: Number, min: 1, max: 5, required: true },
+  },
+  { _id: false, timestamps: true }
+);
+
+const storySchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true, trim: true },
+
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    firstScene: { type: mongoose.Schema.Types.ObjectId, ref: "Scene", default: null },
-    coverImageUrl: { type: String },
 
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    views: { type: Number, default: 0 },
+    genre: { type: String, trim: true }, // optional tag/pill
 
+    // Entry point for interactive stories
+    firstScene: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Scene",
+      default: null,
+    },
+
+    coverImageUrl: { type: String, default: "" }, // card image
+storyText:{ type: String, default: "" },
     status: {
       type: String,
       enum: ["draft", "published"],
-      default: "draft",
+      default: "published",
     },
+
+    // Linear story text (for non-branching or summary)
+    text: { type: String, default: "" },
+
+    // Engagement
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    ratings: [ratingSchema],
+
+    commentsCount: { type: Number, default: 0 },
+    views: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Story", StorySchema);
+// convenience virtual: average rating
+storySchema.virtual("avgRating").get(function () {
+  if (!this.ratings?.length) return 0;
+  const sum = this.ratings.reduce((a, r) => a + r.value, 0);
+  return Math.round((sum / this.ratings.length) * 10) / 10; // 1 decimal
+});
+
+module.exports = mongoose.model("Story", storySchema);

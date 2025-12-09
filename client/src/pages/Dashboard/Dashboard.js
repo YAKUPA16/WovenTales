@@ -1,6 +1,5 @@
 // [Frontend] client/src/pages/Dashboard/Dashboard.js 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { fetchDashboard } from "../../services/dashboardService";
 import { FiSearch, FiBell, FiMoon, FiMaximize2, FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -29,8 +28,6 @@ function likesCountOf(story) {
 }
 
 function StoryCard({ story, onClick }) {
-  const navigate = useNavigate();
-
   return (
     <button className="db-storyCard db-storyCardBig" onClick={onClick} type="button">
       <div
@@ -144,7 +141,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (loading || error) return;
-
+    console.log("Dashboard data:", data);
     const now = Date.now();
     const popularTop = data.popularStories?.[0];
     const completedTop = data.completedStories?.[0];
