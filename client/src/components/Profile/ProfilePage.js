@@ -1,3 +1,9 @@
+// This component displays and manages the user's profile. It loads the logged-in user’s data
+// using the JWT token automatically attached by axiosInstance. Because the backend verifies
+// the JWT, only authenticated users can access their profile. The page allows users to: View basic profile info (username, email, join date, liked stories count)
+// ,Upload and preview a new profile picture using FormData and update profile settings like display name, email, bio/description, and background color
+// Every update request is sent with the stored JWT token, ensuring secure access to protected profile routes. The component also handles state updates, preview images, and UI interactions.
+
 import React, { useEffect, useState } from "react";
 import { getProfile, updateAvatar, updateProfile } from "../../services/userService";
 import "./Profile.css";
