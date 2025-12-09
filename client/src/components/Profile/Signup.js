@@ -1,7 +1,6 @@
 // This component manages new account creation. It collects user details, validates that both
 // passwords match and sends the signup request to the backend. After successful signup, the
 // user is redirected to the login page, where they will receive a JWT token upon logging in.
-// Although the signup itself does not generate a JWT, it enables the user to obtain one later.
 // The JWT will then be used by axiosInstance to authenticate all protected routes automatically.
 
 import React, { useState } from 'react';
