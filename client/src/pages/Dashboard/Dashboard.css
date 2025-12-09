@@ -19,6 +19,13 @@
   --shadow: none;
 }
 
+/* make layout calculations predictable */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .db-page {
   min-height: 100vh;
   background: var(--bg);
@@ -58,6 +65,7 @@
   border-radius: 999px;
   padding: 12px 14px;
   box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06);
+  min-width: 0; /* allow shrinking inside flex */
 }
 
 .db-searchIcon {
@@ -73,6 +81,7 @@
   font-size: 16px;
   background: transparent;
   color: var(--text);
+  min-width: 0; /* critical for flex inputs */
 }
 
 .db-searchBtn {
@@ -115,6 +124,7 @@
   place-items: center;
   font-size: 18px;
   color: var(--text);
+  flex: 0 0 auto;
 }
 
 .db-avatarBtn {
@@ -128,6 +138,7 @@
   box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06);
   display: grid;
   place-items: center;
+  flex: 0 0 auto;
 }
 
 .db-avatar {
@@ -217,6 +228,8 @@
   align-items: baseline;
   justify-content: space-between;
   margin: 10px 0;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .db-sectionTitle {
@@ -234,8 +247,10 @@
   box-shadow: var(--shadow);
 }
 
+/* keep carousel card as a content wrapper, not forcing width here */
 .db-carouselCard {
   padding: 18px;
+  width: 100%;
 }
 
 /* Prompts row */
@@ -248,6 +263,7 @@
   display: flex;
   gap: 14px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .db-promptsRow::-webkit-scrollbar {
@@ -258,9 +274,11 @@
   border-radius: 999px;
 }
 
+/* make prompt cards fluid but limited */
 .db-promptCard {
-  min-width: 190px;
-  max-width: 190px;
+  min-width: 180px;
+  max-width: 240px;
+  flex: 0 0 auto;
   min-height: 90px;
   border-radius: 12px;
   border: 0;
@@ -277,6 +295,7 @@
   gap: 18px;
   overflow-x: auto;
   padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
 }
 .db-storyRow::-webkit-scrollbar {
   height: 10px;
@@ -286,14 +305,17 @@
   border-radius: 999px;
 }
 
+/* default small card (desktop) */
 .db-storyCard {
   width: 220px;
+  flex: 0 0 220px;
   border: 0;
   background: transparent;
   cursor: pointer;
   text-align: left;
 }
 
+/* image box (shared) */
 .db-storyImage {
   height: 160px;
   border-radius: 14px;
@@ -406,14 +428,17 @@
 .db-notifItem:last-child {
   margin-bottom: 0;
 }
-/* Bigger story cards */
+
+/* -------------------- BIGGER STORY CARDS (carousel) -------------------- */
+/* keep same class names but make them responsive */
 .db-storyCardBig {
-  width: 300px;          /* was ~220 */
-  flex: 0 0 auto;
+  width: 300px;          /* base desktop */
+  flex: 0 0 300px;
   border: 0;
   background: transparent;
   cursor: pointer;
   text-align: left;
+  scroll-snap-align: start;
 }
 
 .db-storyImageBig {
@@ -445,7 +470,6 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 }
-
 .db-storyRowSnapped > .db-storyCardBig {
   scroll-snap-align: start;
 }
@@ -490,3 +514,262 @@
   transform: translateY(-50%) scale(1.05);
 }
 
+/* -----------------------------------------------------------
+   RESPONSIVE BREAKPOINTS
+   - 1100px: smaller laptops / large tablets
+   - 900px: tablet
+   - 600px: phone landscape / small tablets
+   - 480px: small phones
+   ----------------------------------------------------------- */
+
+/* Large -> Medium screens: make hero slightly smaller and adjust paddings */
+@media (max-width: 1100px) {
+  .db-content {
+    padding: 16px;
+    max-width: 980px;
+  }
+  .db-hero {
+    height: 210px;
+  }
+  .db-heroTitle {
+    font-size: 44px;
+  }
+  .db-sectionTitle {
+    font-size: 34px;
+  }
+  /* slightly smaller big story card */
+  .db-storyCardBig {
+    width: 280px;
+    flex: 0 0 280px;
+  }
+  .db-storyImageBig {
+    height: 185px;
+  }
+  .db-storyCard {
+    width: 200px;
+    flex: 0 0 200px;
+  }
+}
+
+/* Tablet: stack top bar controls when needed; make cards fluid */
+@media (max-width: 900px) {
+  .db-content {
+    padding: 14px;
+    max-width: 720px;
+  }
+
+  .db-topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .db-searchWrap {
+    order: 1;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .db-searchBtn,
+  .db-searchBtnGhost {
+    flex: 0 0 auto;
+  }
+
+  .db-topIcons {
+    order: 2;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .db-hero {
+    height: 190px;
+    border-radius: 14px;
+  }
+
+  .db-heroTitle {
+    font-size: 36px;
+  }
+
+  .db-heroSubtitle {
+    font-size: 16px;
+    max-width: 92%;
+  }
+
+  .db-sectionTitle {
+    font-size: 30px;
+  }
+
+  /* Prompts: slightly smaller */
+  .db-promptCard {
+    min-width: 170px;
+    max-width: 210px;
+  }
+
+  /* make story cards more touch-friendly */
+  .db-storyCard {
+    width: 180px;
+    flex: 0 0 180px;
+  }
+
+  .db-storyCardBig {
+    width: 260px;
+    flex: 0 0 260px;
+  }
+
+  .db-storyImageBig {
+    height: 170px;
+  }
+
+
+}
+
+/* Phones: stack everything vertically, make carousels full-bleed-ish */
+@media (max-width: 600px) {
+  .db-content {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  .db-topbar {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .db-searchWrap {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .db-searchInput {
+    font-size: 15px;
+  }
+
+  .db-searchBtn,
+  .db-searchBtnGhost {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .db-topIcons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .db-hero {
+    height: 160px;
+    border-radius: 12px;
+  }
+
+  .db-heroTitle {
+    font-size: 28px;
+    line-height: 1.05;
+  }
+
+  .db-heroSubtitle {
+    font-size: 14px;
+    max-width: 95%;
+  }
+
+  .db-sectionTitle {
+    font-size: 26px;
+  }
+
+  /* Prompts become wider relative to viewport */
+  .db-promptCard {
+    min-width: 70%;
+    max-width: 90%;
+  }
+
+  /* Big carousel cards become ~80% width so they shrink on phones */
+  .db-storyCardBig {
+    width: 80%;
+    flex: 0 0 80%;
+    min-width: 260px;
+    max-width: 90%;
+  }
+
+  .db-storyImageBig {
+    height: 150px;
+  }
+
+  /* smaller story cards (in readers panel) */
+  .db-storyCard {
+    width: 160px;
+    flex: 0 0 160px;
+  }
+
+  .db-rowWrap {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* notifications dropdown fits smaller screens */
+  .db-notifs {
+    right: 8px;
+    top: 54px;
+    width: 260px;
+  }
+}
+
+/* Very small phones: remove arrows to maximize touch area, tighten paddings */
+@media (max-width: 480px) {
+  .db-content {
+    padding: 10px 10px 40px;
+  }
+
+  .db-hero {
+    height: 140px;
+  }
+
+  .db-heroTitle {
+    font-size: 22px;
+  }
+
+  .db-heroSubtitle {
+    font-size: 13px;
+  }
+
+  .db-sectionTitle {
+    font-size: 22px;
+  }
+
+  .db-promptCard {
+    min-width: 65%;
+    max-width: 85%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .db-storyCardBig {
+    width: 88%;
+    flex: 0 0 88%;
+    min-width: 200px;
+    max-width: 92%;
+  }
+
+  .db-storyImageBig {
+    height: 130px;
+  }
+
+  .db-rowArrow {
+    display: none; /* prioritize touch/swipe over arrow buttons on tiny screens */
+  }
+
+  .db-notifs {
+    right: 6px;
+    width: calc(100% - 12px);
+  }
+}
+
+/* small utility: ensure hero overlay text wraps cleanly on narrow widths */
+@media (max-width: 360px) {
+  .db-heroOverlay {
+    padding: 12px;
+  }
+  .db-heroTitle {
+    font-size: 20px;
+  }
+  .db-heroSubtitle {
+    font-size: 12px;
+  }
+}

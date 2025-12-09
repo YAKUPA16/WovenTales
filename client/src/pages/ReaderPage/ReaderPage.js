@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axiosInstance";
+import { ArrowLeft } from "lucide-react";
 import "./ReaderPage.css";
 
 export default function ReaderPage() {
@@ -52,9 +53,6 @@ export default function ReaderPage() {
   const findSceneById = (id) =>
     scenes.find((s) => String(s._id) === String(id)) || null;
 
-  /** --------------------------
-   *  Author Name Resolution
-   *  -------------------------- */
   let authorLabel = "Unknown author";
   const author = currentScene.author;
 
@@ -75,16 +73,17 @@ export default function ReaderPage() {
 
   return (
     <div className="reader-page">
-      {/* Story title */}
+
+      <button className="reader-back-btn" onClick={() => navigate(-1)}>
+        <ArrowLeft size={20} color="#fff" />
+      </button>
+  
+
       <h1>{title}</h1>
 
-      {/* Scene author */}
       <div className="scene-author">By {authorLabel}</div>
-
-      {/* Scene text */}
       <div className="scene-text">{sceneText}</div>
 
-      {/* Choices */}
       {currentScene.choices?.length > 0 && (
         <div className="scene-choices">
           {currentScene.choices.map((choice, idx) => {
@@ -104,12 +103,10 @@ export default function ReaderPage() {
         </div>
       )}
 
-      {/* Ending message */}
       {currentScene.hasEnded && (
         <div className="scene-ended">The story ends here.</div>
       )}
 
-      {/* Create Story button — ONLY if NOT ended */}
       {!currentScene.hasEnded && (
         <div className="create-story-wrapper">
           <button

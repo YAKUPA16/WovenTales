@@ -36,11 +36,14 @@ export default function ExplorePage() {
             columnClassName="masonry-column"
         >
             {stories.map((story) => (
-            <div className="story-card" key={story._id}>
-                <img src={story.coverImage} alt="" className="story-img" />
-
-                <h3 className="story-title">{story.title}</h3>
-                <p className="story-desc">{story.description}</p>
+            <div 
+            className="story-card" 
+            key={story._id} 
+            style={{ backgroundImage: story.coverImageUrl ? `url(${story.coverImageUrl})` : 'none'}}>
+                 <div className="story-card-content">
+                    <h3 className="story-title">{story.title}</h3>
+                    <p className="story-desc">{story.description}</p>
+                </div>
             </div>
             ))}
         </Masonry>

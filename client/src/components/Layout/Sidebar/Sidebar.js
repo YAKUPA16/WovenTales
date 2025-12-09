@@ -3,8 +3,6 @@ import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import { 
   AiFillHome, 
-  AiFillStar, 
-  AiOutlineSearch, 
   AiOutlineFolderOpen, 
   AiOutlineSetting, 
   AiOutlineUser, 
@@ -31,9 +29,7 @@ export default function Sidebar() {
         <li><Link to="/"><AiFillHome className="icon"/> Home</Link></li>
         <li><Link to="/create-story"><AiOutlineEdit className="icon"/> Create Story</Link></li>
         <li><Link to="/my-stories"><AiOutlineBook className="icon"/> My Stories</Link></li>
-        <li><Link to="/"><AiFillStar className="icon"/> Favorites</Link></li>
         <li><Link to="/blogs"><AiOutlineBook className="icon"/> Blog</Link></li>
-        <li><Link to="/"><AiOutlineSearch className="icon"/> Search</Link></li>
         <li><Link to="/explore"><AiOutlineFolderOpen className="icon"/> Explore</Link></li>
         <li><Link to="/profile"><AiOutlineUser className="icon"/> Profile</Link></li>
         <li><Link to="/editor"><AiOutlineSetting className="icon"/> Settings</Link></li>

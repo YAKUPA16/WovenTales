@@ -1,68 +1,74 @@
-/* says have a border box on all elements*/
+/* Border-box for all elements */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Wrapper */
 .create-blog-wrapper {
-  position: fixed;    /* in 1 place*/
+  position: fixed;
   top: 0;
-  left: 0;  /* start at the top left side*/
+  left: 0;
   width: 100vw;
   height: 100vh;
   padding: 40px 20px;
-  background-color: #93b0ac;
-  display: flex;    /* easy lineup of page*/
+  background-color: var(--bg);
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  overflow-y: auto;     /*scrollable*/
-  z-index: 1000;    /* make it the first thing to appear on the page*/
+  overflow-y: auto;
+  z-index: 1000;
 }
 
+/* Back button */
 .back-button {
-  position: absolute;   /* place at specific spot inside the cotainer*/
+  position: absolute;
   top: 20px;
   left: 20px;
   background: transparent;
   border: none;
   font-size: 18px;
   cursor: pointer;
-  color: #000000;
+  color: var(--text);
   display: flex;
   align-items: center;
 }
 
 /* Card for the form */
 .create-blog-form {
-  background-color: #ffffff;
+  background-color: var(--card);
   border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);    /* add behind the box*/
+  box-shadow: var(--shadow);
   max-width: 900px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 30px;
-  position: relative;  /*reference point for absolute positions*/
+  position: relative;
 }
 
+/* Form labels */
 .create-blog-form label {
   display: flex;
   flex-direction: column;
   font-size: 16px;
-  color: #333333;
+  color: var(--text);
   gap: 5px;
 }
 
+/* Inputs & textarea */
 .create-blog-form input,
 .create-blog-form textarea {
   width: 100%;
   padding: 12px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid #cccccc;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .create-blog-form textarea {
@@ -70,6 +76,7 @@
   resize: vertical;
 }
 
+/* Image preview */
 .image-preview {
   width: 100%;
   max-height: 400px;
@@ -78,17 +85,18 @@
   border-radius: 8px;
 }
 
+/* Tags */
 .tags-input-wrapper {
   display: flex;
-  flex-wrap: wrap;      /* move the extra tags in next line */
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 5px;
 }
 
 .tags-input-wrapper input {
-flex-grow: 1;
-flex-shrink: 1;
-flex-basis: 150px;    /* makes the add tag btton right next to it*/
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 150px;
   min-width: 100px;
 }
 
@@ -100,7 +108,7 @@ flex-basis: 150px;    /* makes the add tag btton right next to it*/
 }
 
 .tags-preview .tag {
-  background: #e0e0e0;
+  background: var(--border);
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 12px;
@@ -113,24 +121,24 @@ flex-basis: 150px;    /* makes the add tag btton right next to it*/
   padding: 6px 12px;
   border-radius: 12px;
   border: none;
-  background-color: #93B0AC;
-  color: #FFFFFF;
+  background-color: var(--muted);
+  color: var(--card);
   cursor: pointer;
   font-size: 14px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .tags-input-wrapper button:hover {
-  background-color: #688e89;
+  background-color: var(--text);
   transform: translateY(-2px);
 }
 
-
+/* Submit button */
 .submit-btn {
   padding: 12px 20px;
   font-size: 16px;
-  background-color: #007bff;
-  color: #ffffff;
+  background-color: var(--text);
+  color: var(--card);
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -139,21 +147,15 @@ flex-basis: 150px;    /* makes the add tag btton right next to it*/
 }
 
 .submit-btn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* subtle lift on hover */
+  background-color: var(--muted);
+  transform: translateY(-2px);
 }
 
-/*  mobile */
-@media (max-width: 600px) 
-{
+/* Responsive: mobile */
+@media (max-width: 600px) {
   .create-blog-wrapper {
     padding: 15px;
     gap: 15px;
-  }
-
-  .blog-title-card {
-    padding: 15px 20px;
-    font-size: 20px;
   }
 
   .back-button {
@@ -181,13 +183,12 @@ flex-basis: 150px;    /* makes the add tag btton right next to it*/
   }
 }
 
-/* Tabs */
+/* Responsive: tablet */
 @media (max-width: 900px) {
   .create-blog-wrapper {
     padding: 20px;
   }
 
-  .blog-title-card,
   .create-blog-form {
     max-width: 100%;
     padding: 25px;

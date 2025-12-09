@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axiosInstance from "../../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import "./StoryCreater.css";
 
 export default function CreateStory() {
   const navigate = useNavigate();
@@ -42,48 +43,49 @@ export default function CreateStory() {
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: "2rem auto", padding: "1rem", border: "1px solid #ccc", borderRadius: 8 }}>
+    <div className="createStory-page">
       <h1>Create New Story</h1>
 
-      {error && <div style={{ color: "red", marginBottom: 10 }}>{error}</div>}
+      {error && <div className="createStory-error">{error}</div>}
 
       <div style={{ marginBottom: 10 }}>
-        <label>Title:</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          style={{ width: "100%", padding: 8, marginTop: 4 }}
-        />
+      <label className="createStory-label">Title:</label>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="createStory-input"
+      />
       </div>
 
       <div style={{ marginBottom: 10 }}>
-        <label>Story Text / Description:</label>
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          rows={6}
-          style={{ width: "100%", padding: 8, marginTop: 4 }}
-        />
+      <label className="createStory-label">Story Text / Description:</label>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        rows={6}
+        className="createStory-textarea"
+      />
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 20 }}>
-        <button
-          style={{ padding: "8px 16px", backgroundColor: "#4caf50", color: "#fff", border: "none", borderRadius: 4 }}
-          onClick={() => handleSubmit(false)}
-          disabled={loading}
-        >
-          Leave Continued
-        </button>
+      <div className="createStory-btnRow">
+      <button
+        className="createStory-btn createStory-continue"
+        onClick={() => handleSubmit(false)}
+        disabled={loading}
+      >
+        Leave Continued
+      </button>
 
-        <button
-          style={{ padding: "8px 16px", backgroundColor: "#f44336", color: "#fff", border: "none", borderRadius: 4 }}
-          onClick={() => handleSubmit(true)}
-          disabled={loading}
-        >
-          End
-        </button>
+      <button
+        className="createStory-btn createStory-end"
+        onClick={() => handleSubmit(true)}
+        disabled={loading}
+      >
+        End
+      </button>
       </div>
     </div>
+
   );
 }
